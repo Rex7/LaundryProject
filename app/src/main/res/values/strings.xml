@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">LaundryMan</string>
+    <string name="app_uname">LaundryMan</string>
+    <string name="register">register</string>
+    <string name="profile">profile</string>
+    <string name="history">history</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="phoneNo">Phone No</string>
+    <string name="password">password</string>
+    <string name="signup">Not a member ? Sign up  now.</string>
+    <string name="login">Login</string>
+    <string name="address_1">Street Address</string>
+    <string name="address_2">Street Address</string>
+    <string name="address_3">landmark</string>
+    <string name="address_4">city , state , country</string>
+    <string name="open_navigation">Open</string>
+    <string name="close_navigation">Close</string>
+    <string name="laundry_clothes">No of clothes</string>
+    <string name="add">Add more laundry..</string>
+    <string name="submit">submit</string>
+    <array name="cloth_type">
+        <item>shirt</item>
+        <item>pant</item>
+        <item>saree</item>
+        <item>special dress</item>
+    </array>
+</resources>
