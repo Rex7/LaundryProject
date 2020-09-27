@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardViewRec"
-    android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:clickable="true"
-    app:cardUseCompatPadding="true"
-    android:clipToPadding="true"
-    app:cardBackgroundColor="#fafcfd"
-    app:cardCornerRadius="2dp"
-    app:cardElevation="5dp">
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardViewRec"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:clickable="true"
+        app:cardUseCompatPadding="true"
+        android:clipToPadding="true"
+        app:cardBackgroundColor="#fafcfd"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="5dp">
 
     <RelativeLayout
         android:id="@+id/cardview_relative"

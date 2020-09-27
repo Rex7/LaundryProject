@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        sessionManage=new SessionManage(getApplicationContext());
        requestQueue=VolleySingle.getInstance().getRequestQueue();
        setSupportActionBar(toolbar);
-       getSupportActionBar().setTitle("LaundryMan");
+       getSupportActionBar().setTitle("Add Laundry");
         drawerLayout =  findViewById(R.id.drawer);
         navigationView=findViewById(R.id.navView);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -70,7 +71,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View row=inflater.inflate(R.layout.custom,null,false);
+                final View row=inflater.inflate(R.layout.custom,null,false);
+                ImageView imageView=row.findViewById(R.id.delete);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                      linearLayout.removeView(row);
+                    }
+                });
                 linearLayout.addView(row);
             }
         });
@@ -159,10 +167,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.profile:
                 startActivity(new Intent(getApplicationContext(),ProfileView.class));
                 break;
-            case R.id.report:
-                startActivity(new Intent(getApplicationContext(),History.class));
+            case R.id.history:
+                startActivity(new Intent(getApplicationContext(),LaundryHistoryActivity.class));
                 break;
-            case R.id.register:
+            case R.id.home:
                 startActivity(new Intent(getApplicationContext(),RegisterScreen.class));
                 break;
 
@@ -175,6 +183,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DailogFragment dailogFragment=new DailogFragment(getApplicationContext(),sessionManage);
         dailogFragment.show(fragmentManager,"dialog");
         Toast.makeText(getApplicationContext(),"hello ",Toast.LENGTH_LONG).show();
+
+    }
+    private  void removeView(View view){
 
     }
 }

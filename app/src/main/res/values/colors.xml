@@ -5,4 +5,6 @@
     <color name="colorAccent">#03A9F4</color>
     <color name="myripple">#f265c5</color>
     <color name="Transparen">#e2fdf9f8</color>
+    <color name="background_logo">#4831D4</color>
+
 </resources>

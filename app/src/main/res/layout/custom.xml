@@ -1,32 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewRec"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:clickable="true"
+    app:cardUseCompatPadding="true"
+    android:clipToPadding="true"
+    app:cardBackgroundColor="#fafcfd"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="5dp">
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <Spinner
         android:id="@+id/select_clothes"
         android:layout_width="150dp"
-        android:layout_marginLeft="25dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:spinnerMode="dropdown"
-        android:entries="@array/cloth_type"
-        android:layout_marginStart="25dp" />
-
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+         android:entries="@array/cloth_type"
+        android:spinnerMode="dropdown" />
 
     <EditText
         android:id="@+id/nof_clothes_entry"
         android:textColorHint="@color/colorAccent"
         android:gravity="center_horizontal"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:hint="@string/laundry_clothes"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_toRightOf="@+id/select_clothes"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/select_clothes"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="5dp" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/nof_clothes_entry"
+        android:src="@android:drawable/ic_delete" />
 </RelativeLayout>
+</androidx.cardview.widget.CardView>

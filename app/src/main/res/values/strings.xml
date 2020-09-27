@@ -2,8 +2,9 @@
     <string name="app_name">LaundryMan</string>
     <string name="app_uname">LaundryMan</string>
     <string name="register">register</string>
-    <string name="profile">profile</string>
-    <string name="history">history</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="history">History</string>
     <string name="name">Name</string>
     <string name="confirm_password">Confirm password</string>
     <string name="phoneNo">Phone No</string>
