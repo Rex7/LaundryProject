@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -95,7 +93,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
                 }
             }) {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams()  {
                     HashMap<String, String> data = new HashMap<>();
                     data.put("name", name.getText().toString());
                     data.put("password", password.getText().toString());

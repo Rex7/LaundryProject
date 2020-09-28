@@ -1,5 +1,5 @@
 package com.example.laundryproject;
 
    public class CostManager {
-    public static int COST=5;
+    static int COST=5;
 }

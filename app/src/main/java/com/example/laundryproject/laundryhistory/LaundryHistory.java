@@ -1,10 +1,10 @@
-package com.example.laundryproject;
+package com.example.laundryproject.laundryhistory;
 
 public class LaundryHistory {
     private String noOfClothes;
     private String cost;
 
-    public LaundryHistory(String noOfClothes, String cost) {
+    LaundryHistory(String noOfClothes, String cost) {
         this.noOfClothes = noOfClothes;
         this.cost = cost;
     }

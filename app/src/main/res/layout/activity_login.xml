@@ -37,6 +37,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailId_layout"
             android:layout_centerHorizontal="true"
+
             android:layout_marginTop="30dp"
             android:layout_width="320dp"
             android:layout_below="@+id/logo"

@@ -3,18 +3,24 @@ package com.example.laundryproject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.HashMap;
 
 public class SessionManage {
-  private SharedPreferences sharedPreferences;
- private Context context;
+    private SharedPreferences sharedPreferences;
+    private Context context;
     private SharedPreferences.Editor editor;
     private static final String app = "Session";
     private static final String IS_LOGIN = "is_login";
-   private static final String NAME = "name";
+    private static final String NAME = "name";
     private static final String PASSWORD = "password";
     private static final String PHONENO = "phoneNo";
+    private static final String ADDRESS1 = "address1";
+    private static final String ADDRESS2 = "address2";
+    private static final String ADDRESS3 = "address3";
+    private static final String ADDRESS4 = "address4";
+
 
 
     public SessionManage(Context context) {
@@ -23,12 +29,16 @@ public class SessionManage {
         editor = sharedPreferences.edit();
     }
 
-    public void createSession(String password, String phoneNO, String username) {
+     void createSession(String password, String phoneNO, String username,String ... address) {
         editor.putBoolean(IS_LOGIN, true);
-      editor.putString(NAME, username);
-        editor.putString(PHONENO,phoneNO);
+        editor.putString(NAME, username);
+        editor.putString(PHONENO, phoneNO);
         editor.putString(PASSWORD, password);
-
+        editor.putString(ADDRESS1,address[0]);
+         Log.v("myLog","address "+address[0]);
+        editor.putString(ADDRESS2,address[1]);
+        editor.putString(ADDRESS3,address[2]);
+        editor.putString(ADDRESS4,address[3]);
         editor.apply();
     }
 
@@ -40,13 +50,13 @@ public class SessionManage {
 
     public HashMap<String, String> getUserDetail() {
         HashMap<String, String> user = new HashMap<>();
-
-      //  user.put(NAME, sharedPreferences.getString(NAME, null));
+        //  user.put(NAME, sharedPreferences.getString(NAME, null));
         user.put(PHONENO, sharedPreferences.getString(PHONENO, null));
-
-
+        user.put(ADDRESS1, sharedPreferences.getString(ADDRESS1, null));
+        user.put(ADDRESS2, sharedPreferences.getString(ADDRESS2, null));
+        user.put(ADDRESS3, sharedPreferences.getString(ADDRESS3, null));
+        user.put(ADDRESS4, sharedPreferences.getString(ADDRESS4, null));
         return user;
-
     }
 
     public void Logout() {
@@ -56,11 +66,10 @@ public class SessionManage {
         myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(myIntent);
+    }
 
-
-            }
-    public String getUsername(){
-        return sharedPreferences.getString( NAME,null);
+    public String getUsername() {
+        return sharedPreferences.getString(NAME, null);
     }
 
     public boolean isLogedIn() {
