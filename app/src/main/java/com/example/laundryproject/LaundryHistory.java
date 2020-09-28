@@ -4,7 +4,7 @@ public class LaundryHistory {
     private String noOfClothes;
     private String cost;
 
-    public LaundryHistory(String noOfClothes, String cost) {
+    LaundryHistory(String noOfClothes, String cost) {
         this.noOfClothes = noOfClothes;
         this.cost = cost;
     }

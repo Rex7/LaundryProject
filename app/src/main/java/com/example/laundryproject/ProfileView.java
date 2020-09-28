@@ -25,7 +25,9 @@ public class ProfileView extends AppCompatActivity implements NavigationView.OnN
         setContentView(R.layout.activity_profile_view);
         toolbar=findViewById(R.id.toolbar_profile);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("My Profile");
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setTitle("My Profile");
+        }
         drawerLayout =  findViewById(R.id.drawer_profile);
         navigationView=findViewById(R.id.navView_profile);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,

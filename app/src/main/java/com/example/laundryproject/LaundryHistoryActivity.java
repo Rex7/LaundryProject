@@ -1,36 +1,31 @@
 package com.example.laundryproject;
 
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.navigation.NavigationView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
+import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,14 +38,17 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    SessionManage sessionManage;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_laundry);
         toolbar=findViewById(R.id.toolbar_history);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("My Laundry History");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("My Laundry History");
+        sessionManage=new SessionManage(getApplicationContext());
         drawerLayout =  findViewById(R.id.drawer_laundry);
         navigationView=findViewById(R.id.navView_laundry);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -65,10 +63,7 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(historyAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
     }
-
-
     public ArrayList<LaundryHistory> getAllData() {
         final ArrayList<LaundryHistory> laundryHistoryList = new ArrayList<>();
         requestQueue = VolleySingle.getInstance().getRequestQueue();
@@ -92,8 +87,6 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
 
 
             }
-
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -101,15 +94,12 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 HashMap<String, String> data = new HashMap<>();
-                data.put("phoneNo", "9821572187");
-
+                data.put("phoneNo", sessionManage.getUserDetail().get("phoneNo"));
                 return data;
             }
         };
-
-
         requestQueue.add(stringRequest);
           return laundryHistoryList;
 

@@ -1,9 +1,8 @@
 package com.example.laundryproject;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,54 +22,57 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-EditText phoneNo ;
-TextInputEditText password;
-SessionManage sessionManage;
-StringRequest stringRequest;
-RequestQueue requestQueue;
-Toolbar toolbar;
-Button login;
+    EditText phoneNo;
+    TextInputEditText password;
+    SessionManage sessionManage;
+    StringRequest stringRequest;
+    RequestQueue requestQueue;
+    Toolbar toolbar;
+    Button login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        toolbar=findViewById(R.id.toolbar);
-        phoneNo=findViewById(R.id.phoneNo);
-        password=findViewById(R.id.textPass);
-        login=findViewById(R.id.login);
+        toolbar = findViewById(R.id.toolbar);
+        phoneNo = findViewById(R.id.phoneNo);
+        password = findViewById(R.id.textPass);
+        login = findViewById(R.id.login);
         login.setOnClickListener(this);
-        sessionManage=new SessionManage(getApplicationContext());
+        sessionManage = new SessionManage(getApplicationContext());
         setSupportActionBar(toolbar);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.login_menu,menu);
+        getMenuInflater().inflate(R.menu.login_menu, menu);
         return true;
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menu_register:
-                startActivity(new Intent(this,RegisterScreen.class));
+        if (item.getItemId() == R.id.menu_register) {
+            startActivity(new Intent(this, RegisterScreen.class));
         }
-        return  true;
+        return true;
     }
 
     @Override
     public void onClick(View v) {
-        String status;
-        requestQueue= VolleySingle.getInstance().getRequestQueue();
 
-        if(phoneNo.getText()!=null && password.getText()!=null){
-            stringRequest=new StringRequest(Request.Method.POST, "https://rexmyapp.000webhostapp.com/login_laun.php", new Response.Listener<String>() {
+        requestQueue = VolleySingle.getInstance().getRequestQueue();
+
+        if (phoneNo.getText() != null && password.getText() != null) {
+            stringRequest = new StringRequest(Request.Method.POST, "https://rexmyapp.000webhostapp.com/login_laun.php", new Response.Listener<String>() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
                 public void onResponse(String response) {
                     String message;
@@ -81,7 +81,7 @@ Button login;
                     try {
                         jsonObject = new JSONObject(response);
                         message = jsonObject.getString("status");
-                        Log.v("MessageLog","message"+message);
+                        Log.v("MessageLog", "message" + message);
                         if (message.equals("successful")) {
                             String userName = jsonObject.get("name").toString();
                             Log.v("UserName ", "no" + userName);
@@ -96,7 +96,7 @@ Button login;
                             Toast.makeText(getApplicationContext(), "Sorry UserName is not registered" + message, Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
-                        Log.v("myLog", e.getMessage());
+                        Log.v("myLog", Objects.requireNonNull(e.getLocalizedMessage()));
                     }
                 }
             }, new Response.ErrorListener() {
@@ -106,7 +106,7 @@ Button login;
                 }
             }) {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams() {
                     HashMap<String, String> data = new HashMap<>();
                     data.put("phoneNo", phoneNo.getText().toString().trim());
                     data.put("password", password.getText().toString().trim());
@@ -118,9 +118,10 @@ Button login;
             requestQueue.add(stringRequest);
         }
 
-        }
-    public void signUp(View v){
-        startActivity(new Intent(getApplicationContext(),RegisterScreen.class));
+    }
+
+    public void signUp(View v) {
+        startActivity(new Intent(getApplicationContext(), RegisterScreen.class));
     }
 
 }
