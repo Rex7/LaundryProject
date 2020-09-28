@@ -1,4 +1,4 @@
-package com.example.laundryproject;
+package com.example.laundryproject.laundryhistory;
 
 public class LaundryHistory {
     private String noOfClothes;

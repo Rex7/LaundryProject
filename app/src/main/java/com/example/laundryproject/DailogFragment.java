@@ -41,8 +41,6 @@ public class DailogFragment extends DialogFragment {
     @SuppressLint("ValidFragment")
     DailogFragment(Context context, SessionManage sessionManage) {
         Log.v("MyDataPlus", "hellobabe");
-
-
         this.sessionManage = sessionManage;
         this.context = context;
     }

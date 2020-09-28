@@ -20,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.laundryproject.laundryhistory.LaundryHistoryActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int finalCost=0;
     int finalNoOfClothes=0;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        sessionManage=new SessionManage(getApplicationContext());
        requestQueue=VolleySingle.getInstance().getRequestQueue();
        setSupportActionBar(toolbar);
-       getSupportActionBar().setTitle("Add Laundry");
+       Objects.requireNonNull(getSupportActionBar()).setTitle("Add Laundry");
         drawerLayout =  findViewById(R.id.drawer);
         navigationView=findViewById(R.id.navView);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -109,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             break;
                     }
                 }
-                Log.v("CostManager","FinalCost"+finalCost);
                 stringRequest=new StringRequest(Request.Method.POST,
                         "https://rexmyapp.000webhostapp.com/insert_laundry.php", new Response.Listener<String>() {
                     @Override
@@ -129,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 {
                     @Override
                     protected Map<String, String> getParams()  {
-
                         HashMap<String, String> data = new HashMap<>();
                         data.put("cost", String.valueOf(finalCost));
                         data.put("phoneNo", sessionManage.getUserDetail().get("phoneNo"));
@@ -138,17 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         return data;
                     }
                 };
-
-
                 requestQueue.add(stringRequest);
-
-
-
-
-
-
-
-
             }
         });
 
@@ -168,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(getApplicationContext(),ProfileView.class));
                 break;
             case R.id.history:
-                startActivity(new Intent(getApplicationContext(),LaundryHistoryActivity.class));
+                startActivity(new Intent(getApplicationContext(), LaundryHistoryActivity.class));
                 break;
             case R.id.home:
                 startActivity(new Intent(getApplicationContext(),RegisterScreen.class));
@@ -183,9 +173,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DailogFragment dailogFragment=new DailogFragment(getApplicationContext(),sessionManage);
         dailogFragment.show(fragmentManager,"dialog");
         Toast.makeText(getApplicationContext(),"hello ",Toast.LENGTH_LONG).show();
-
     }
-    private  void removeView(View view){
 
-    }
 }

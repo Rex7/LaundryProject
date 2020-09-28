@@ -1,4 +1,4 @@
-package com.example.laundryproject;
+package com.example.laundryproject.laundryhistory;
 
 import android.content.Intent;
 import android.os.Build;
@@ -10,6 +10,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.laundryproject.MainActivity;
+import com.example.laundryproject.ProfileView;
+import com.example.laundryproject.R;
+import com.example.laundryproject.SessionManage;
+import com.example.laundryproject.VolleySingle;
 import com.google.android.material.navigation.NavigationView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -109,13 +114,13 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.profile:
-                startActivity(new Intent(getApplicationContext(),ProfileView.class));
+                startActivity(new Intent(getApplicationContext(), ProfileView.class));
                 break;
             case R.id.history:
                 startActivity(new Intent(getApplicationContext(),LaundryHistoryActivity.class));
                 break;
             case R.id.home:
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
 
         }

@@ -1,10 +1,12 @@
-package com.example.laundryproject;
+package com.example.laundryproject.laundryhistory;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.laundryproject.R;
 
 import java.util.ArrayList;
 

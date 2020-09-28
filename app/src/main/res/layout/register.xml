@@ -172,14 +172,14 @@
 
             <Button
                 android:id="@+id/register"
-                android:layout_width="180dp"
-                android:layout_height="80dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/address4_layout"
                 android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:textColor="#ffffff"
-                android:hint="@string/register"
                 android:layout_marginTop="40dp"
-                android:layout_below="@+id/address4_layout"/>
+                android:background="@drawable/rounded_button"
+                android:text="@string/login"
+                android:textColor="#efecec" />
 
 
         </RelativeLayout>

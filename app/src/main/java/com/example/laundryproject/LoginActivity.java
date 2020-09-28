@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login.setOnClickListener(this);
         sessionManage = new SessionManage(getApplicationContext());
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Log in");
     }
 
     @Override
@@ -84,10 +85,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Log.v("MessageLog", "message" + message);
                         if (message.equals("successful")) {
                             String userName = jsonObject.get("name").toString();
+                            String address1=jsonObject.get("address_1").toString();
+                            String address2=jsonObject.get("address_2").toString();
+                            String address3=jsonObject.get("address_3").toString();
+                            String address4=jsonObject.get("address_4").toString();
+                            Log.v("myLog","address "+address1);
                             Log.v("UserName ", "no" + userName);
-                            sessionManage.createSession(password.getText().toString(), phoneNo.getText().toString(), userName);
+                            sessionManage.createSession(password.getText().toString(), phoneNo.getText().toString(), userName,address1,address2
+                            ,address3,address4);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-
                             startActivity(intent);
 
 
