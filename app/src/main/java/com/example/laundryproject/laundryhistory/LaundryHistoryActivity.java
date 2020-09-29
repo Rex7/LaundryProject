@@ -5,6 +5,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,6 +17,7 @@ import com.example.laundryproject.ProfileView;
 import com.example.laundryproject.R;
 import com.example.laundryproject.SessionManage;
 import com.example.laundryproject.VolleySingle;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +47,7 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
     NavigationView navigationView;
     ActionBarDrawerToggle actionBarDrawerToggle;
     SessionManage sessionManage;
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -51,6 +55,7 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_laundry);
         toolbar=findViewById(R.id.toolbar_history);
+        shimmerFrameLayout=findViewById(R.id.shimmer_layout);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("My Laundry History");
         sessionManage=new SessionManage(getApplicationContext());
@@ -60,6 +65,7 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
                 R.string.open_navigation, R.string.close_navigation);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         navigationView.setNavigationItemSelectedListener(this);
+        shimmerFrameLayout.startShimmer();
         recyclerView=findViewById(R.id.recyclerView_history);
        laundryHistories =getAllData();
         Log.v("LaundryHistoryActivity","Size"+laundryHistories.size());
@@ -84,7 +90,11 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
                         Log.v("LaundryHistoryActivity","Size"+laundryHistoryList.get(i).getNoOfClothes());
                     }
                     historyAdapter = new HistoryAdapter(getApplicationContext(), laundryHistoryList);
+
+                    shimmerFrameLayout.stopShimmer();
+                    shimmerFrameLayout.setVisibility(View.GONE);
                     recyclerView.setAdapter(historyAdapter);
+                    recyclerView.setVisibility(View.VISIBLE);
                     historyAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     Log.v("JSONParseIssue","key"+e.getMessage());
@@ -108,6 +118,18 @@ public class LaundryHistoryActivity extends AppCompatActivity implements Navigat
         requestQueue.add(stringRequest);
           return laundryHistoryList;
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        shimmerFrameLayout.stopShimmer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmer();
     }
 
     @Override
