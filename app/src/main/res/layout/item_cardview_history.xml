@@ -12,24 +12,27 @@
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/no_of_clothes_item"
-            android:text="No of Clothes"
+            android:text="@string/laundry_label"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="50dp"
             android:textSize="21sp"
             android:fontFamily="@font/roboto_regular"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp" />
         <TextView
             android:id="@+id/cost_of_clothes_item"
-            android:text="Cost"
+            android:text="@string/cost"
             android:layout_marginTop="40dp"
             android:textSize="21sp"
             android:layout_marginLeft="100dp"
             android:textColor="#2196F3"
-            android:fontFamily="@font/roboto_thin"
+            android:fontFamily="@font/roboto_regular"
             android:layout_toRightOf="@+id/no_of_clothes_item"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/no_of_clothes_item"
+            android:layout_marginStart="100dp" />
 
     </RelativeLayout>
 

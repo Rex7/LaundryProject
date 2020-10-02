@@ -9,7 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     RequestQueue requestQueue;
     Toolbar toolbar;
     Button login;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         toolbar = findViewById(R.id.toolbar);
         phoneNo = findViewById(R.id.phoneNo);
         password = findViewById(R.id.textPass);
+        progressBar=findViewById(R.id.progressbar_login);
         login = findViewById(R.id.login);
         login.setOnClickListener(this);
         sessionManage = new SessionManage(getApplicationContext());
@@ -70,6 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
 
         requestQueue = VolleySingle.getInstance().getRequestQueue();
+        progressBar.setVisibility(View.VISIBLE);
 
         if (phoneNo.getText() != null && password.getText() != null) {
             stringRequest = new StringRequest(Request.Method.POST, "https://rexmyapp.000webhostapp.com/login_laun.php", new Response.Listener<String>() {

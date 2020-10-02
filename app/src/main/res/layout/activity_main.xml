@@ -29,20 +29,20 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 <LinearLayout
+    android:id="@+id/parent_layout"
     android:layout_below="@+id/appbar_main"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/parent_layout"
     android:orientation="vertical" />
     <Button
         android:id="@+id/Add_laundry"
         android:text="@string/add"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/parent_layout"
-        android:foreground="?attr/selectableItemBackground"
+        android:background="@drawable/rounded_button"
         android:textColor="#f5f2f2"
-        android:background="@color/colorPrimary"
         android:layout_width="180dp"
+        android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"/>
 
     <Button
@@ -50,12 +50,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/Add_laundry"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:foreground="?attr/selectableItemBackground"
+        android:background="@drawable/rounded_button"
+        android:layout_marginLeft="300dp"
         android:textColor="#f5f2f2"
-        android:background="@color/colorPrimary"
         android:text="@string/submit" />
+
+
 </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

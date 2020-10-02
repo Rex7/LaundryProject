@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="90dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="2dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    >
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="320dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+            <TextView
+                android:id="@+id/phoneNo_Name_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/phoneNo"
+
+                android:layout_marginTop="10dp"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/Name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="97dp"
+                android:layout_marginTop="10dp"
+                android:gravity="start"
+                android:textColor="@color/colorAccent"
+                android:layout_toRightOf="@+id/phoneNo_Name_bottom"
+                android:text="9821572187"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="25sp"
+                android:layout_toEndOf="@+id/phoneNo_Name_bottom" />
+
+            <TextView
+                android:id="@+id/botton_no_of_clothes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/phoneNo_Name_bottom"
+                android:layout_marginTop="25dp"
+                android:text="@string/laundry_label"
+                android:layout_marginLeft="10dp"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/botton_price_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/botton_no_of_clothes"
+                android:layout_marginLeft="48dp"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_below="@+id/botton_no_of_clothes"
+                android:layout_toRightOf="@+id/botton_no_of_clothes"
+                android:text="₹5"
+
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/bottom_cost"
+                android:text="@string/cost"
+                android:layout_marginTop="25dp"
+
+                android:textSize="25sp"
+                android:layout_marginLeft="10dp"
+
+                android:layout_below="@+id/botton_price_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/bottom_cost_value"
+                android:text="@string/cost"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                android:gravity="start"
+                android:layout_below="@+id/botton_price_name"
+                android:layout_toRightOf="@+id/bottom_cost"
+                android:layout_alignBaseline="@+id/bottom_cost"
+                android:layout_marginLeft="150dp"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/payment_type"
+                android:text="Payment Type "
+                android:layout_below="@+id/bottom_cost"
+                android:textSize="25sp"
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/payment_value"
+                android:text="COD"
+                android:textColor="@color/colorAccent"
+                android:textSize="21sp"
+                android:layout_toRightOf="@+id/payment_type"
+                android:layout_alignBaseline="@+id/payment_type"
+                android:layout_marginStart="43dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="43dp" />
+            <Button
+                android:id="@+id/placeorder"
+                android:layout_below="@+id/payment_type"
+                android:layout_centerHorizontal="true"
+                android:layout_width="320dp"
+                android:layout_marginTop="20dp"
+                android:text="Place Order"
+                android:textColor="#f5f2f2"
+                android:background="@drawable/rounded_button"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>
