@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.laundryproject">
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApplication"
@@ -11,13 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileView">
+        <activity android:name=".ProfileView"></activity>
 
-        </activity>
-        <activity android:name=".laundryhistory.LaundryHistoryActivity"/>
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".laundryhistory.LaundryHistoryActivity" />
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".RegisterScreen" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -26,8 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
 
 </manifest>

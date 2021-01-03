@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,12 +15,24 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.laundryproject.laundryhistory.LaundryHistory;
 import com.example.laundryproject.laundryhistory.LaundryHistoryActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -43,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     StringRequest stringRequest;
     int finalCost = 0;
     int finalNoOfClothes = 0;
+    int orderId=10;
+    String checksum;
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -52,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar_main);
         addMore = findViewById(R.id.Add_laundry);
         submit = findViewById(R.id.submit_main);
+
+
+
         linearLayout = findViewById(R.id.parent_layout);
         sessionManage = new SessionManage(getApplicationContext());
         requestQueue = VolleySingle.getInstance().getRequestQueue();
@@ -106,10 +125,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             break;
                     }
                 }
-                LaundryHistory laundryHistory = new LaundryHistory(String.valueOf(noOfClothes_count), String.valueOf(finalCost));
+                linearLayout.removeAllViews();
+                LaundryHistory laundryHistory=new LaundryHistory(String.valueOf(finalNoOfClothes),String.valueOf(finalCost));
                 showBottom(laundryHistory);
+                       // Token(finalCost);
 
-            }
+                           }
         });
 
 
@@ -119,6 +140,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         actionBarDrawerToggle.syncState();
+
+    }
+    public String Token(int cost){
+        final String[] token = {""};
+        orderId++;
+        Log.v("SessionManage","data"+sessionManage.getUsername());
+
+
+        stringRequest = new StringRequest(Request.Method.POST, "https://rexmyapp.000webhostapp.com/paytm/getChecksumHash.php", new Response.Listener<String>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject  mJsonObject=new JSONObject(response);
+                    checksum = mJsonObject.getString("CHECKSUMHASH");
+                    Log.v("PaymentResponse", "message 1" + checksum);
+                    startPayment(checksum);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                token[0] =response;
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            Log.v("PaymentResponse","ne"+error);
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> data = new HashMap<>();
+                data.put("ORDER_ID",sessionManage.getOrder_ID());
+                data.put( "CUST_ID" , "cust123");
+                data.put( "MOBILE_NO" , "7777777777");
+                data.put( "EMAIL" , "regiscahrles@emailprovider.com");
+                data.put( "CHANNEL_ID" , "WAP");
+                data.put( "TXN_AMOUNT" , String.valueOf(finalCost));
+                data.put( "WEBSITE" , "WEBSTAGING");
+                data.put( "INDUSTRY_TYPE_ID" , "Retail");
+                data.put( "CALLBACK_URL", "https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp");
+                return data;
+            }
+        };
+        requestQueue.add(stringRequest);
+        return token[0].trim();
+
 
     }
 
@@ -134,7 +205,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.home:
                 startActivity(new Intent(getApplicationContext(), RegisterScreen.class));
                 break;
-
         }
         return true;
 
@@ -149,10 +219,77 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void showBottom(LaundryHistory laundryHistory) {
         BottomSheetDailog bottomSheet = new BottomSheetDailog(sessionManage);
-        bottomSheet.setLaundryHistory(laundryHistory);
+        bottomSheet.setLaundryHistory(laundryHistory,this);
         bottomSheet.show(this.getSupportFragmentManager(), bottomSheet.getTag());
 
-
     }
+    public void startPayment(String Token){
+        PaytmPGService Service = PaytmPGService.getStagingService("https://securegw-stage.paytm.in/order/process");
+        HashMap<String, String> paramMap = new HashMap<String,String>();
+        paramMap.put( "MID" , "gunPvc18331998455232");
+        paramMap.put( "ORDER_ID" , sessionManage.getOrder_ID());
+        paramMap.put( "CUST_ID" , "cust123");
+        paramMap.put( "MOBILE_NO" , "7777777777");
+        paramMap.put( "EMAIL" , "regiscahrles@emailprovider.com");
+        paramMap.put( "CHANNEL_ID" , "WAP");
+        paramMap.put( "TXN_AMOUNT" , String.valueOf(finalCost));
+        paramMap.put( "WEBSITE" , "WEBSTAGING");
+        paramMap.put( "INDUSTRY_TYPE_ID" , "Retail");
+        paramMap.put( "CALLBACK_URL", "https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp");
+        paramMap.put( "CHECKSUMHASH" , Token);
+        PaytmOrder Order = new PaytmOrder(paramMap);
+        Service.initialize(Order,null);
+        Service.startPaymentTransaction(MainActivity.this, true, true, new PaytmPaymentTransactionCallback() {
+            /*Call Backs*/
+            public void someUIErrorOccurred(String inErrorMessage) {}
+            public void onTransactionResponse(Bundle inResponse) {
+                Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
+            }
+            public void networkNotAvailable() {
+                Toast.makeText(getApplicationContext(), "Network connection error: Check your internet connectivity",Toast.LENGTH_LONG);
+            }
+            public void clientAuthenticationFailed(String inErrorMessage) {
+                Toast.makeText(getApplicationContext(), "Authentication failed: Server error" + inErrorMessage, Toast.LENGTH_LONG).show();
+            }
+            public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String inFailingUrl) {
+                Toast.makeText(getApplicationContext(), "Unable to load webpage " + inFailingUrl, Toast.LENGTH_LONG).show();
+
+            }
+            public void onBackPressedCancelTransaction() {}
+            public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {}
+        });
+    }
+public void submitDataIntoServer(){
+    stringRequest=new StringRequest(Request.Method.POST,
+            "https://rexmyapp.000webhostapp.com/insert_laundry.php", new Response.Listener<String>() {
+        @Override
+        public void onResponse(final String response) {
+            if(response.equals("successful")){
+                Snackbar.make(linearLayout, "Added the laundry", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+            Log.v("ExceptionDemo",""+response);
+        }
+    },new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+
+        }
+    })
+    {
+        @Override
+        protected Map<String, String> getParams()  {
+            HashMap<String, String> data = new HashMap<>();
+            data.put("cost", String.valueOf(finalCost));
+            data.put("phoneNo", sessionManage.getUserDetail().get("phoneNo"));
+            data.put("noofclothes", String.valueOf(finalNoOfClothes));
+
+            return data;
+        }
+    };
+    requestQueue.add(stringRequest);
 
 }
+}
+
+

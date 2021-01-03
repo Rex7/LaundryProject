@@ -8,9 +8,9 @@ import android.util.Log;
 import java.util.HashMap;
 
 public class SessionManage {
-    private SharedPreferences sharedPreferences;
-    private Context context;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences sharedPreferences;
+    private final Context context;
+    private final SharedPreferences.Editor editor;
     private static final String app = "Session";
     private static final String IS_LOGIN = "is_login";
     private static final String NAME = "name";
@@ -20,6 +20,7 @@ public class SessionManage {
     private static final String ADDRESS2 = "address2";
     private static final String ADDRESS3 = "address3";
     private static final String ADDRESS4 = "address4";
+    private  static final String Order_ID="order_Id";
 
 
 
@@ -74,5 +75,12 @@ public class SessionManage {
 
     public boolean isLogedIn() {
         return sharedPreferences.getBoolean(IS_LOGIN, false);
+    }
+    public String getOrder_ID(){
+        return sharedPreferences.getString(Order_ID,null);
+
+    }
+    public void setOrder_ID(String orderId){
+        editor.putString(Order_ID,orderId);
     }
 }

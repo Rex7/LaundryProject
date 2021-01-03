@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +33,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText phoneNo;
+    TextInputLayout passwordinputLayout;
     TextInputEditText password;
     SessionManage sessionManage;
     StringRequest stringRequest;
@@ -46,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         toolbar = findViewById(R.id.toolbar);
         phoneNo = findViewById(R.id.phoneNo);
+        passwordinputLayout=findViewById(R.id.password);
         password = findViewById(R.id.textPass);
         progressBar=findViewById(R.id.progressbar_login);
         login = findViewById(R.id.login);
@@ -83,7 +86,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onResponse(String response) {
                     String message;
                     JSONObject jsonObject;
-
                     try {
                         jsonObject = new JSONObject(response);
                         message = jsonObject.getString("status");
@@ -100,10 +102,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             ,address3,address4);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
-
-
                             finish();
                         } else {
+                            if(message.equals("Error")){
+                                progressBar.setVisibility(View.INVISIBLE);
+                                passwordinputLayout.setError("Password Mismatch");
+                            }
                             Toast.makeText(getApplicationContext(), "Sorry UserName is not registered" + message, Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
@@ -134,5 +138,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void signUp(View v) {
         startActivity(new Intent(getApplicationContext(), RegisterScreen.class));
     }
+
 
 }

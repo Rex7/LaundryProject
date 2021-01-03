@@ -77,18 +77,16 @@
             android:id="@+id/maincardview2"
             android:layout_width="350dp"
             android:layout_height="300dp"
-            android:layout_below="@+id/maincardview"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="300dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="10dp">
 
             <RelativeLayout
                 android:id="@+id/profile_body"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
 
                 <TextView
                     android:id="@+id/username"
