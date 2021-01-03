@@ -5,31 +5,36 @@
     app:cardUseCompatPadding="true"
     app:cardElevation="4dp"
     app:cardCornerRadius="10dp"
-    android:layout_height="120dp">
+    android:layout_height="100dp">
     <RelativeLayout
         android:id="@+id/card"
+        android:background="#DAD7D7"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/no_of_clothes_item"
-            android:text="No of Clothes"
-            android:layout_marginTop="40dp"
+            android:text="@string/laundry_label"
+            android:layout_marginTop="25dp"
             android:layout_marginLeft="50dp"
+            android:textColor="#666666"
             android:textSize="21sp"
             android:fontFamily="@font/roboto_regular"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp" />
         <TextView
             android:id="@+id/cost_of_clothes_item"
-            android:text="Cost"
-            android:layout_marginTop="40dp"
+            android:text="@string/cost"
             android:textSize="21sp"
             android:layout_marginLeft="100dp"
-            android:textColor="#2196F3"
-            android:fontFamily="@font/roboto_thin"
+            android:textColor="#666666"
+            android:fontFamily="@font/roboto_regular"
             android:layout_toRightOf="@+id/no_of_clothes_item"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/no_of_clothes_item"
+            android:layout_toEndOf="@+id/no_of_clothes_item"
+            android:layout_marginStart="100dp" />
 
     </RelativeLayout>
 

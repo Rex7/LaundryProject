@@ -20,6 +20,12 @@
     <string name="laundry_clothes">No of clothes</string>
     <string name="add">Add more laundry..</string>
     <string name="submit">submit</string>
+    <string name="laundry_label">No of clothes :</string>
+    <string name="cost">Total</string>
+    <string name="tick">tick</string>
+    <string name="sucessful">Sucessful</string>
+    <string name="you_have_successfully_placed_the_order">You have successfully placed the order</string>
+    <string name="close">close</string>
     <array name="cloth_type">
         <item>shirt</item>
         <item>pant</item>

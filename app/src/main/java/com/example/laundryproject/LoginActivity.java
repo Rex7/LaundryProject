@@ -9,13 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,12 +33,14 @@ import androidx.appcompat.widget.Toolbar;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText phoneNo;
+    TextInputLayout passwordinputLayout;
     TextInputEditText password;
     SessionManage sessionManage;
     StringRequest stringRequest;
     RequestQueue requestQueue;
     Toolbar toolbar;
     Button login;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         toolbar = findViewById(R.id.toolbar);
         phoneNo = findViewById(R.id.phoneNo);
+        passwordinputLayout=findViewById(R.id.password);
         password = findViewById(R.id.textPass);
+        progressBar=findViewById(R.id.progressbar_login);
         login = findViewById(R.id.login);
         login.setOnClickListener(this);
         sessionManage = new SessionManage(getApplicationContext());
@@ -70,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
 
         requestQueue = VolleySingle.getInstance().getRequestQueue();
+        progressBar.setVisibility(View.VISIBLE);
 
         if (phoneNo.getText() != null && password.getText() != null) {
             stringRequest = new StringRequest(Request.Method.POST, "https://rexmyapp.000webhostapp.com/login_laun.php", new Response.Listener<String>() {
@@ -78,7 +86,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onResponse(String response) {
                     String message;
                     JSONObject jsonObject;
-
                     try {
                         jsonObject = new JSONObject(response);
                         message = jsonObject.getString("status");
@@ -95,10 +102,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             ,address3,address4);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
-
-
                             finish();
                         } else {
+                            if(message.equals("Error")){
+                                progressBar.setVisibility(View.INVISIBLE);
+                                passwordinputLayout.setError("Password Mismatch");
+                            }
                             Toast.makeText(getApplicationContext(), "Sorry UserName is not registered" + message, Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
@@ -129,5 +138,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void signUp(View v) {
         startActivity(new Intent(getApplicationContext(), RegisterScreen.class));
     }
+
 
 }

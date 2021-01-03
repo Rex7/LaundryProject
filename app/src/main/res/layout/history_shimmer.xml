@@ -29,10 +29,12 @@
             android:layout_marginLeft="100dp"
             android:textColor="#2196F3"
             android:background="#B3B3B3"
-            android:fontFamily="@font/roboto_thin"
+            android:fontFamily="@font/roboto_regular"
             android:layout_toRightOf="@+id/no_of_clothes_item"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"/>
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_toEndOf="@+id/no_of_clothes_item" />
 
     </RelativeLayout>
 
